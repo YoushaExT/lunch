@@ -6,6 +6,7 @@ admin.autodiscover()
 
 from khana.admin import admin_site
 
+import khana.views
 # To add a new path, first import the app:
 # import blog
 #
@@ -15,6 +16,7 @@ from khana.admin import admin_site
 # Learn more here: https://docs.djangoproject.com/en/2.1/topics/http/urls/
 
 urlpatterns = [
+    path('', khana.views.index),
     path("admin/", admin.site.urls),
     path('khana/', include('khana.urls')),
     path('myadmin/', admin_site.urls),
