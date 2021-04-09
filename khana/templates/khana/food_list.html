@@ -1,0 +1,23 @@
+{% extends "khana/layout.html" %}
+{% block body %}
+    <h1>MY LUNCH LIST</h1>
+    Display a table here with all lunch entries
+    <table>
+        <tr>
+            <th>Item Id</th>
+            <th>Item Name</th>
+            <th>Shop Name</th>
+            <th>Price</th>
+        </tr>
+        {% for food in foods %}
+        <tr>
+            <td>{{ food.id }}</td>
+            <td>{{ food.name }}</td>
+            <td>{{ food.shop }}</td>
+            <td>{{ food.price }}</td>
+        </tr>
+        {% empty %}
+        No foods
+        {% endfor %}
+    </table>
+{% endblock %}

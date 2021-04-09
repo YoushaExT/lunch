@@ -1,0 +1,23 @@
+{% extends 'khana/layout.html' %}
+{% block body %}
+<h1>Login Form</h1>
+{{ message }}
+<form id='login_form' action="{% url 'login' %}" method="post">
+    {% csrf_token %}
+    <input type="text" name="username" placeholder="Username">
+<!--    <input id="hidden_p1" type="hidden" name="hidden_password" value="">-->
+    <input id="p1" type="password" name="password" placeholder="PIN">
+</form>
+<br>
+<button type="button" class="btn btn-dark" onclick="myFunction()">LOGIN!</button>
+<br>
+Don't have an account: <a href="{% url 'register' %}">Register!</a>
+
+<script>
+function myFunction() {
+  password = document.getElementById("p1").value
+  document.getElementById("p1").value = sha224(password);
+  document.getElementById("login_form").submit()
+}
+</script>
+{% endblock %}

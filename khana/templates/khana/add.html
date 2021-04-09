@@ -1,0 +1,26 @@
+{% extends "khana/layout.html" %}
+
+{% block body %}
+    <h1>Welcome, {{ request.user.first_name }} {{ request.user.last_name }}</h1>
+    <h1>Place orders here</h1>
+
+
+    <form id='shop_form' action="{% url 'shop_filter' %}" method="post">
+        {% csrf_token %}
+        {{ shop_form }}
+    </form>
+
+    <form action="{% url 'add' %}" method="post">
+        {% csrf_token %}
+        {{ form }}
+        <input type="submit">
+    </form>
+
+    <a href="{% url 'index' %}">Back</a>
+    <script>
+        function myShopFunction()
+        {
+            document.getElementById("shop_form").submit()
+        }
+    </script>
+{% endblock %}

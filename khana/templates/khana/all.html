@@ -1,0 +1,41 @@
+{% extends "khana/layout.html" %}
+
+{% load khana_square %}
+
+{% block body %}
+    <h1>Welcome, {{ request.user.first_name }} {{ request.user.last_name }}</h1>
+    {% if orders %}
+        <h2 class="text-center">All your orders</h2>
+            <table class="table">
+
+                <tr>
+                    <th>Order Id</th>
+                    <th>Date</th>
+                    <th>Ordered by</th>
+                    <th>Shop</th>
+                    <th>Item name</th>
+                    <th>Price</th>
+                    <th>Quantity</th>
+                </tr>
+
+                {% for order in orders %}
+                <tr>
+                    <td>{{ order.id }}</td>
+                    <td>{{ order.date_id.date }}</td>
+                    <td>{{ order.user_id.first_name }} {{ order.user_id.last_name }}</td>
+                    <td>{{ order.item_id.shop }}</td>
+                    <td>{{ order.item_id.name }}</td>
+                    <td>{{ order.item_id.price }}</td>
+                    <td>{{ order.quantity }}</td>
+                </tr>
+                {% endfor %}
+            </table>
+    <h2 style="text-align: right">Total Price: {{ sum }}</h2>
+    {% else %}
+    <h1>NO ORDERS YET!</h1>
+    {% endif %}
+        <a href="{% url 'todays_orders' %}">Go to today's orders</a>
+    <br>
+    <a href="{% url 'logout' %}">Log out</a>
+
+{% endblock %}

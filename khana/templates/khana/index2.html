@@ -1,0 +1,217 @@
+{% extends "khana/layout.html" %}
+
+{% load khana_square %}
+
+{% block body %}
+    {% if request.user.is_staff %}
+    <a href="{% url 'approve' %}">Approve Users!</a>
+    {% endif %}
+
+    <h1>Welcome, {{ request.user.first_name }} {{ request.user.last_name }}</h1>
+
+    {{ date_form }}
+
+    {% if orders %}
+    {% if is_today %}
+        <h2 class="text-center">Today's Orders - {{ date|date_to_day }}, {{ date }}</h2>
+    {% else %}
+        <h2 class="text-center">Orders on {{ date|date_to_day }}, {{ date }} </h2>
+    {% endif %}
+
+
+    <form class="d-flex justify-content-end" id="filter_form" action="{% url 'filtered_index' %}" method="post">
+        {% csrf_token %}
+        {{ filter_form }}
+    </form>
+
+    <table class="table">
+
+        <tr>
+            <th>Order Id</th>
+            <th>Date</th>
+            <th>Ordered by</th>
+            <th>Shop</th>
+            <th>Item name</th>
+            <th>Price</th>
+            <th>Quantity</th>
+        </tr>
+        {% if people and shop %}
+
+        {% if people != '0' and shop != '0' %}
+
+             {% for order in orders|filter_by_user:people|filter_by_shop:shop %}
+                <tr>
+                    <td>{{ order.id }}</td>
+                    <td>{{ order.date_id.date }}</td>
+                    <td>{{ order.user_id.first_name }} {{ order.user_id.last_name }}</td>
+                    <td>{{ order.item_id.shop }}</td>
+                    <td>{{ order.item_id.name }}</td>
+                    <td>{{ order.item_id.price }}</td>
+                    <td>{{ order.quantity }}</td>
+                    {% if is_today and request.user.id == order.user_id.id %}
+                    <td>
+                        <form action="{% url 'delete' %}" method="post">
+                            {% csrf_token %}
+                            <input type="hidden" value="{{order.id}}" name="order_id">
+                            <input type="submit" value="Remove">
+                        </form>
+                        <form action="{% url 'update' %}" method="post">
+                            {% csrf_token %}
+                            <input type="hidden" value="{{order.id}}" name="order_id">
+                            <input type="submit" value="Update">
+                        </form>
+                    </td>
+                    {% endif %}
+                </tr>
+            {% endfor %}
+        {% elif people != '0' %}
+
+            {% for order in orders|filter_by_user:people %}
+
+                <tr>
+                    <td>{{ order.id }}</td>
+                    <td>{{ order.date_id.date }}</td>
+                    <td>{{ order.user_id.first_name }} {{ order.user_id.last_name }}</td>
+                    <td>{{ order.item_id.shop }}</td>
+                    <td>{{ order.item_id.name }}</td>
+                    <td>{{ order.item_id.price }}</td>
+                    <td>{{ order.quantity }}</td>
+                    {% if is_today and request.user.id == order.user_id.id %}
+                    <td>
+                        <form action="{% url 'delete' %}" method="post">
+                            {% csrf_token %}
+                            <input type="hidden" value="{{order.id}}" name="order_id">
+                            <input type="submit" value="Remove">
+                        </form>
+                        <form action="{% url 'update' %}" method="post">
+                            {% csrf_token %}
+                            <input type="hidden" value="{{order.id}}" name="order_id">
+                            <input type="submit" value="Update">
+                        </form>
+                    </td>
+                    {% endif %}
+                </tr>
+            {% endfor %}
+        {% elif shop != '0' %}
+
+        {% for order in orders|filter_by_shop:shop %}
+
+            <tr>
+                <td>{{ order.id }}</td>
+                <td>{{ order.date_id.date }}</td>
+                <td>{{ order.user_id.first_name }} {{ order.user_id.last_name }}</td>
+                <td>{{ order.item_id.shop }}</td>
+                <td>{{ order.item_id.name }}</td>
+                <td>{{ order.item_id.price }}</td>
+                <td>{{ order.quantity }}</td>
+                {% if is_today and request.user.id == order.user_id.id %}
+                <td>
+                    <form action="{% url 'delete' %}" method="post">
+                        {% csrf_token %}
+                        <input type="hidden" value="{{order.id}}" name="order_id">
+                        <input type="submit" value="Remove">
+                    </form>
+                    <form action="{% url 'update' %}" method="post">
+                        {% csrf_token %}
+                        <input type="hidden" value="{{order.id}}" name="order_id">
+                        <input type="submit" value="Update">
+                    </form>
+                </td>
+                {% endif %}
+            </tr>
+        {% endfor %}
+
+        {% else %}
+
+        {% for order in orders %}
+
+        <tr>
+            <td>{{ order.id }}</td>
+            <td>{{ order.date_id.date }}</td>
+            <td>{{ order.user_id.first_name }} {{ order.user_id.last_name }}</td>
+            <td>{{ order.item_id.shop }}</td>
+            <td>{{ order.item_id.name }}</td>
+            <td>{{ order.item_id.price }}</td>
+            <td>{{ order.quantity }}</td>
+            {% if is_today and request.user.id == order.user_id.id %}
+            <td>
+                <form action="{% url 'delete' %}" method="post">
+                    {% csrf_token %}
+                    <input type="hidden" value="{{order.id}}" name="order_id">
+                    <input type="submit" value="Remove">
+                </form>
+                <form action="{% url 'update' %}" method="post">
+                    {% csrf_token %}
+                    <input type="hidden" value="{{order.id}}" name="order_id">
+                    <input type="submit" value="Update">
+                </form>
+            </td>
+            {% endif %}
+        </tr>
+        {% endfor %}
+
+        {% endif %}
+        {% else %}
+
+        {% for order in orders %}
+
+        <tr>
+            <td>{{ order.id }}</td>
+            <td>{{ order.date_id.date }}</td>
+            <td>{{ order.user_id.first_name }} {{ order.user_id.last_name }}</td>
+            <td>{{ order.item_id.shop }}</td>
+            <td>{{ order.item_id.name }}</td>
+            <td>{{ order.item_id.price }}</td>
+            <td>{{ order.quantity }}</td>
+            {% if is_today and request.user.id == order.user_id.id %}
+            <td>
+                <form action="{% url 'delete' %}" method="post">
+                    {% csrf_token %}
+                    <input type="hidden" value="{{order.id}}" name="order_id">
+                    <input type="submit" value="Remove">
+                </form>
+                <form action="{% url 'update' %}" method="post">
+                    {% csrf_token %}
+                    <input type="hidden" value="{{order.id}}" name="order_id">
+                    <input type="submit" value="Update">
+                </form>
+            </td>
+            {% endif %}
+        </tr>
+        {% endfor %}
+
+        {% endif %}
+
+    </table>
+    <h2 style="text-align: right">Total Price: {{ sum }}</h2>
+    {% else %}
+    <h1>NO ORDERS YET!</h1>
+    {% endif %}
+    {% if is_today %}
+    <form action="{% url 'add' %}">
+        <input type="submit" value="Place a new order">
+    </form>
+    {% else %}
+        <a href="{% url 'index' %}">Go to today's orders</a>
+    {% endif %}
+    <br>
+    <a href="{% url 'all_my_orders' %}">All my orders</a>
+    <br>
+    <a href="{% url 'logout' %}">Log out</a>
+
+    <input type="hidden" id="hidden_date_copy" value="{{date}}">
+    <script>
+    function myDateFunction() {
+      date_id = document.getElementById("date_selector").value
+      location.replace(`{% url 'index' %}${date_id}`)
+    }
+
+    function myFilterFunction()
+    {
+        date = document.getElementById("hidden_date_copy").value
+        document.getElementById("hidden_date").value = date
+        document.getElementById("filter_form").submit()
+    }
+
+    </script>
+{% endblock %}

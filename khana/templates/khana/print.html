@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<style>
+table, th, td {
+  border: 1px solid black;
+  border-collapse: collapse;
+}
+p {
+  line-height: 0.7;
+  margin-block-start: 0.5em;
+  margin-block-end: 0.5em;
+}
+</style>
+{% load khana_square %}
+<body>
+    <hr>
+        {% for shop in orders_by_shop %}
+            <b>{{ shop.object.name }}</b>
+            <table>
+                <tr>
+                    <th>S. no.</th>
+                    <th>Name</th>
+                    <th>Quantity</th>
+                    <th>Total</th>
+                </tr>
+            {% for food_item in shop.order %}
+                <tr>
+                    <td>{{ forloop.counter }}</td>
+                    <td>{{ food_item.item.name }}</td>
+                    <td>{{ food_item.quantity }}</td>
+                    <td>{{ food_item.total }}</td>
+                </tr>
+            {% endfor %}
+            </table>
+        {% endfor %}
+    <hr>
+        <table style="border-collapse: collapse;">
+            <tr>
+                <th>S. No.</th>
+                <th>Name</th>
+                <th>Item</th>
+                <th>Price</th>
+                <th>Quantity</th>
+                <th>Total</th>
+            </tr>
+        {% for order in orders_per_person %}
+            <tr>
+                <td style="text-align: center;">{{ forloop.counter }}</td>
+                <td>{{ order.person.first_name }} {{ order.person.last_name }}</td>
+
+                <td>
+                    {% for o in order.orders %}
+                        <p>{{ o.item_id.name }}</p>
+                    {% endfor %}
+                </td>
+                <td>
+                    {% for o in order.orders %}
+                        <p>{{ o.item_id.price }}</p>
+                    {% endfor %}
+                </td>
+                <td>
+                    {% for o in order.orders %}
+                        <p>{{ o.quantity }}</p>
+                    {% endfor %}
+                </td>
+
+                <td>{{ order.total }}</td>
+            </tr>
+        {% endfor %}
+        </table>
+</body>
+</html>

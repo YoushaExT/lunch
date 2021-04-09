@@ -1,0 +1,50 @@
+{% extends 'khana/layout.html' %}
+{% load khana_square %}
+{% block body %}
+<h1 class="my-3">REGISTER HERE</h1>
+<h5 style="color:red"> {{ message|linebreaks }}</h5>
+<form id="registration_form" class="row" action="{% url 'register' %}" method="post">
+    {% csrf_token %}
+    <div class="col-6">
+    {{ registration_form.non_field_errors }}
+    {% for f in registration_form %}
+
+        <div class="fieldWrapper mb-2">
+            {{ f.errors }}
+            {{ f.label_tag }}
+            {{ f }}
+
+        </div>
+
+    {% endfor %}
+
+    <input type="submit" value="Register" class="btn btn-dark mt-2 float-end" onclick="myFunction()">
+    </div>
+    <div class="col-6"></div>
+
+</form>
+<div class="mb-2"></div>
+
+Already have an account: <a href="{% url 'login' %}">Login!</a>
+
+{% comment %}
+{% include 'khana/test_snippet.html' %}
+{% endcomment %}
+<script>
+function myFunction() {
+  pin = document.getElementById("p1").value
+  pin_empty = pin === "";
+  any_empty_fields = pin === ""
+  || document.getElementById("id_first_name").value === ""
+  || document.getElementById("id_last_name").value === ""
+  || document.getElementById("id_username").value === ""
+  || document.getElementById("id_email").value === "";
+  if (!any_empty_fields)
+  {
+    document.getElementById("p1").value = sha224(pin);
+  }
+
+}
+</script>
+
+{% endblock %}

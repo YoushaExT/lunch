@@ -1,0 +1,49 @@
+{% extends 'khana/layout.html' %}
+{% block body %}
+
+{% if request.user.is_staff %}
+
+{% if pending_users %}
+<h1>Pending Registrations!</h1>
+{% else %}
+<h1>No Pending Registrations!</h1>
+{% endif %}
+<table class="table">
+    {% if pending_users %}
+        <tr>
+            <th>Username</th>
+            <th>First name</th>
+            <th>Last name</th>
+            <th>Email Address</th>
+        </tr>
+    {% endif %}
+    {% for user in pending_users %}
+        <tr>
+            <td>{{ user.username }}</td>
+            <td>{{ user.first_name }}</td>
+            <td>{{ user.last_name }}</td>
+            <td>{{ user.email }}</td>
+            <td>
+                <form action="{% url 'approve' %}" method="post">
+                    {% csrf_token %}
+                    <input type="hidden" value="{{ user.id }}" name="approved_user">
+                    <input type="submit" value="Approve">
+                </form>
+
+                <form action="{% url 'delete_temp' %}" method="post">
+                    {% csrf_token %}
+                    <input type="hidden" value="{{ user.id }}" name="user_id">
+                    <input type="submit" value="Remove">
+                </form>
+            </td>
+        </tr>
+    {% endfor %}
+</table>
+
+{% else %}
+<h1>Access Denied, You need to be Admin!</h1>
+{% endif %}
+
+<a href="{% url 'index' %}">Back</a>
+
+{% endblock %}

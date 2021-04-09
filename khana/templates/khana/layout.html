@@ -1,0 +1,29 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Food orderings</title>
+    <link href="{% static 'khana/bootstrap.min.css' %}" rel="stylesheet">
+
+</head>
+<body>
+
+
+<div class="container">
+    <div class="row">
+        <div class="col-1"></div>
+        <div class="col-10">
+
+        {% block body %}
+        {% endblock %}
+
+        </div>
+        <div class="col-1"></div>
+    </div>
+</div>
+
+<script src="{% static 'khana/sha256.js' %}"></script>
+</body>
+</html>
