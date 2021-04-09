@@ -439,7 +439,7 @@ def register(request):
             temp_user = TempUser(username=username, password=hashed_pin, email=email,
                                  first_name=first_name, last_name=last_name)
             temp_user.save()
-            return HttpResponseRedirect(reverse('login'), {
+            return render(request, 'khana/login.html', {
                 'message': 'Registered Successfully, Waiting for Approval'
             })
         else:
@@ -722,3 +722,7 @@ def print_orders(request):
         # 'all_orders': all_orders,
         # 'filter_form': FilterShopAndPersonForm(shops=shops, peoples=peoples),
     })
+
+
+def default(request, x):
+    return HttpResponseRedirect(reverse('index'))
