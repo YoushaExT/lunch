@@ -21,5 +21,5 @@ urlpatterns = [
     path('khana/', include('khana.urls')),
     path('myadmin/', admin_site.urls),
     path('<str:useless>', khana.views.default),
-    # path('accounts/', include('django.contrib.auth.urls')),
+    path('accounts/', include('django.contrib.auth.urls')),
 ]

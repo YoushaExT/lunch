@@ -724,5 +724,19 @@ def print_orders(request):
     })
 
 
-def default(request, x):
+def default(request, useless=None):
+    return HttpResponseRedirect(reverse('index'))
+
+
+def send_a_mail(request):
+    from django.core.mail import send_mail
+    print('Sending email!')
+    send_mail(
+        'Subject here 2',
+        'Here is the message 2.!!',
+        'yousha.arshad@techwards.co',
+        ['yousha234@gmail.com'],
+        fail_silently=False,
+    )
+
     return HttpResponseRedirect(reverse('index'))
