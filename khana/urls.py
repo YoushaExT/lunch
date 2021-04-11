@@ -20,7 +20,7 @@ urlpatterns = [
     path('filtered_index', views.filtered_index, name='filtered_index'),
     path('todays_orders', views.todays_orders, name='todays_orders'),
     path('print_orders', views.print_orders, name='print_orders'),
-    path('mail', views.send_a_mail),
+    # path('mail', views.send_a_mail),
     path('<str:useless>', views.default),
     
 
