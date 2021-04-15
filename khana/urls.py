@@ -24,4 +24,4 @@ urlpatterns = [
     path('<str:useless>', views.default),
     
 
-] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+]
