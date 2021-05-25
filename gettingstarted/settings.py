@@ -42,6 +42,8 @@ INSTALLED_APPS = [
     "anymail",
     "khana",
     "django_crontab",
+    "rest_framework",
+    "khana_rest",
 ]
 
 MIDDLEWARE = [
