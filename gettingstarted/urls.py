@@ -29,5 +29,6 @@ urlpatterns = [
     path('reset/done/', views.PasswordResetCompleteView.as_view(), name='password_reset_complete'),
     # path('accounts/', include('django.contrib.auth.urls')),
     path('accounts/login/', khana.views.login_view),
+    path('khana_rest/', include('khana_rest.urls')),
     path('<str:useless>', khana.views.default),
 ]
