@@ -131,14 +131,19 @@ STATIC_URL = "/static/"
 django_heroku.settings(locals())
 
 # CRONTAB_EXECUTABLE = f'{BASE_DIR}/crontab'
-from decouple import config
-EMAIL_BACKEND = "anymail.backends.mailjet.EmailBackend"
 
-ANYMAIL = {
-    "MAILJET_API_KEY": config("MAILJET_API_KEY"),
-    "MAILJET_SECRET_KEY": config("MAILJET_SECRET_KEY"),
-}
 
-DEFAULT_FROM_EMAIL = config("DEFAULT_FROM_EMAIL")
+
+#UNCOMMENT TO REENABLE EMAIL (NEED TO PROVIDE API KEY)
+
+# from decouple import config
+# EMAIL_BACKEND = "anymail.backends.mailjet.EmailBackend"
+
+# ANYMAIL = {
+#     "MAILJET_API_KEY": config("MAILJET_API_KEY"),
+#     "MAILJET_SECRET_KEY": config("MAILJET_SECRET_KEY"),
+# }
+
+# DEFAULT_FROM_EMAIL = config("DEFAULT_FROM_EMAIL")
 
 
