@@ -133,6 +133,18 @@ django_heroku.settings(locals())
 # CRONTAB_EXECUTABLE = f'{BASE_DIR}/crontab'
 
 
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+        # 'rest_framework.authentication.BasicAuthentication',
+        'rest_framework.authentication.SessionAuthentication',
+    ],
+    'DEFAULT_PERMISSION_CLASSES': [
+        'rest_framework.permissions.IsAuthenticated',
+        # 'rest_framework.permissions.IsAuthenticatedOrReadOnly',
+        # 'rest_framework.permissions.DjangoModelPermissions',
+    ],
+}
+
 
 #UNCOMMENT TO REENABLE EMAIL (NEED TO PROVIDE API KEY)
 
