@@ -1,6 +1,6 @@
 from django.urls import path
 # from django.urls.resolvers import URLPattern
-from .views import FoodItemAPIView, FoodItemDetails, OrderAPIView, OrderDetails, DateAPIView, DateDetails, ShopAPIView, ShopDetails, UserAPIView, UserDetails, TempUserAPIView, TempUserDetails, rest_api_documentation #, food_item_list
+from .views import FoodItemAPIView, FoodItemDetails, OrderAPIView, OrderDetails, DateAPIView, DateDetails, ShopAPIView, ShopDetails, UserAPIView, UserDetails, TempUserAPIView, TempUserDetails, rest_api_documentation, DateToday #, food_item_list
 
 urlpatterns = [
     #path('food_items/', food_item_list),
@@ -17,4 +17,5 @@ urlpatterns = [
     path('users/<int:pk>', UserDetails.as_view()),
     path('temp_users/', TempUserAPIView.as_view()),
     path('temp_users/<int:pk>', TempUserDetails.as_view()),
+    path('date_today/', DateToday.as_view()),
 ]

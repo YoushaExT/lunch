@@ -12,6 +12,7 @@ from rest_framework import status
 
 from rest_framework.permissions import IsAdminUser, IsAuthenticated, DjangoModelPermissions
 
+from django.utils import timezone
 #from django.contrib.auth.decorators import login_required
 # Create your views here.
 
@@ -96,7 +97,8 @@ class OrderAPIView(APIView):
 
     def post(self, request):
         # only add own order, TODO 2 admin can add orders for some1 else
-        request.data['user_id'] = request.user.id
+        if not request.user.is_staff and 'user_id' not in request.data:
+            request.data['user_id'] = request.user.id
         serializer = OrderSerializer(data=request.data)
 
         
@@ -160,8 +162,11 @@ class OrderDetails(APIView):
             except Order.DoesNotExist:
                 return Response(status=status.HTTP_403_FORBIDDEN)
 
+            request.data['user_id'] = request.user.id
 
-        request.data['user_id'] = request.user.id
+        if 'user_id' not in request.data:
+            request.data['user_id'] = request.user.id
+
         serializer = OrderSerializer(order, data=request.data)
 
         if serializer.is_valid():
@@ -311,6 +316,32 @@ class DateDetails(APIView):
             return Response(status=status.HTTP_404_NOT_FOUND)
         date.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
+
+class DateToday(APIView):
+
+    # get todays day
+    def get(self, request):
+        date_today = timezone.now().date()
+
+        if Date.objects.filter(date=date_today).exists():
+            date = Date.objects.get(date=date_today)
+        else:
+            return Response(status=status.HTTP_404_NOT_FOUND)
+        serializer = DateSerializer(date)
+        return Response(serializer.data)
+    
+    # TODO add only today's date
+    def post(self, request, pk):
+        date_today = timezone.now().date()
+        
+        if Date.objects.filter(date=date_today).exists():
+            date = Date.objects.get(date=date_today)
+        else:
+            date_object = Date(date=date_today)
+            date_object.save()
+
+        serializer = DateSerializer(date)
+        return Response(serializer.data)
 
 
 class UserAPIView(APIView):
