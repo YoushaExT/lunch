@@ -1,0 +1,164 @@
+{
+	"info": {
+		"_postman_id": "270bdfb3-fbca-40a0-acdf-68e84b382626",
+		"name": "New Collection",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "foodget",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": null
+			},
+			"response": []
+		},
+		{
+			"name": "http://127.0.0.1:8000/khana_rest/food_items/",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "User-Agent",
+						"value": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:88.0) Gecko/20100101 Firefox/88.0"
+					},
+					{
+						"key": "Accept",
+						"value": "application/json"
+					},
+					{
+						"key": "Accept-Language",
+						"value": "en-US,en;q=0.5"
+					},
+					{
+						"key": "Referer",
+						"value": "http://127.0.0.1:8000/khana_rest/"
+					},
+					{
+						"key": "Connection",
+						"value": "keep-alive"
+					},
+					{
+						"key": "Cookie",
+						"value": "csrftoken=8XVtAbZqOWin2FViQFATqJviIReaQQkGDjX5d8J3wQwLLX9BIDqg12QukYL1en5j; sessionid=sx0tll655nb0ha1mi70paoinkldxrmf2"
+					},
+					{
+						"key": "Upgrade-Insecure-Requests",
+						"value": "1"
+					},
+					{
+						"key": "Sec-GPC",
+						"value": "1"
+					},
+					{
+						"key": "Cache-Control",
+						"value": "max-age=0"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n        \"name\": \"Fake food\",\n        \"price\": 123,\n        \"shop\": 3\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://127.0.0.1:8000/khana_rest/food_items/",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8000",
+					"path": [
+						"khana_rest",
+						"food_items",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "post_food_item",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "User-Agent",
+						"value": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:88.0) Gecko/20100101 Firefox/88.0"
+					},
+					{
+						"key": "Accept",
+						"value": "text/html; q=1.0, */*"
+					},
+					{
+						"key": "Accept-Language",
+						"value": "en-US,en;q=0.5"
+					},
+					{
+						"key": "Referer",
+						"value": "http://127.0.0.1:8000/khana_rest/food_items/"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					},
+					{
+						"key": "X-CSRFTOKEN",
+						"value": "zskMmxTBMUOpsFcFEgELvjeXGHW6uR3K4OmoZuDeuO2NbXqYweu86Cz9iOtXSoOn"
+					},
+					{
+						"key": "X-Requested-With",
+						"value": "XMLHttpRequest"
+					},
+					{
+						"key": "Origin",
+						"value": "http://127.0.0.1:8000"
+					},
+					{
+						"key": "Connection",
+						"value": "keep-alive"
+					},
+					{
+						"key": "Cookie",
+						"value": "csrftoken=8XVtAbZqOWin2FViQFATqJviIReaQQkGDjX5d8J3wQwLLX9BIDqg12QukYL1en5j; sessionid=sx0tll655nb0ha1mi70paoinkldxrmf2"
+					},
+					{
+						"key": "Sec-GPC",
+						"value": "1"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n        \"name\": \"Chipasvcool\",\n        \"price\": 30,\n        \"shop\": 2\n}"
+				},
+				"url": {
+					"raw": "http://127.0.0.1:8000/khana_rest/food_items/",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8000",
+					"path": [
+						"khana_rest",
+						"food_items",
+						""
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
