@@ -1,3 +1,4 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -11,13 +12,17 @@ table, th, td {
 }
 p {
   line-height: 0.7;
-  margin-block-start: 0.5em;
-  margin-block-end: 0.5em;
+  margin-block-start: 0.7em;
+  margin-block-end: 0.7em;
 }
 </style>
 {% load khana_square %}
 <body>
+    
     <hr>
+    <a href="http://techwards.co" class="logo">
+        <img style='width: 20%; float: right;' src="{% static 'khana/Logo.svg' %}" alt="techwards logo" class="img-fluid">
+    </a>
         {% for shop in orders_by_shop %}
             <b>{{ shop.object.name }}</b>
             <table>
