@@ -7,10 +7,19 @@
     {% if request.user.is_superuser %}
     <a href="{% url 'approve' %}">Approve Users!</a>
     {% endif %}
+    {% if request.user.is_staff %}
+    <div>
+    <a href="{% url 'print_orders' %}">Print View</a>
+    </div>
+    {% endif %}
 
     <h1>Welcome, {{ request.user.first_name }} {{ request.user.last_name }}!!</h1>
 
-
+    {% if is_today or all_orders %}
+    <form action="{% url 'add' %}">
+        <input type="submit" value="Place a new order">
+    </form>
+    {% endif %}
 
     <div class="d-flex justify-content-end">
         {{ date_form }}
@@ -83,11 +92,7 @@
     <h4>No Orders</h4>
     {% endif %}
 
-    {% if is_today or all_orders %}
-    <form action="{% url 'add' %}">
-        <input type="submit" value="Place a new order">
-    </form>
-    {% endif %}
+    
     {% if not is_today %}
         <a href="{% url 'index' %}{{ today_id }}">Go to today's orders</a>
     {% endif %}
@@ -104,11 +109,7 @@
 
     <input type="hidden" id="hidden_date_copy" value="{{date}}">
 
-    {% if request.user.is_staff %}
-    <div>
-    <a href="{% url 'print_orders' %}">Print View</a>
-    </div>
-    {% endif %}
+    
     <script>
     function myDateFunction() {
       date_id = document.getElementById("date_selector").value
